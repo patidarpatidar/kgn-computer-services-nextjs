@@ -20,13 +20,14 @@ export default function Footer() {
   const {site} = useStore();
   const socials = site.socialLinks || {};
   const whatsapp = whatsappLink(site.whatsapp, `Hello ${site.name}, I found you on your website and would like to know more.`);
+  const locationLink = site.googleMapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.address||"")}`;
   return <footer className="footer">
     <div className="container footer-topline"><span className="footer-pulse"/><span>{site.announcement || "Local computer sales, repairs and friendly tech support"}</span><Link href="/inquiry">Tell us what you need <ArrowRight size={14}/></Link></div>
     <div className="container footer-grid">
       <div className="footer-about">
         <Link className="brand footer-brand" href="/"><span className="brand-mark"><Laptop size={24}/></span><span><strong>{site.shortName||"KGN Computer"}</strong><small>& SERVICES</small></span></Link>
         <p>{site.tagline || "Computers, accessories and friendly support for your home, study and business."}</p>
-        <a className="footer-whatsapp" href={whatsapp} target="_blank" rel="noopener noreferrer"><MessageCircle size={17}/><span><strong>Chat with our team</strong><small>We’re happy to help you choose</small></span><ArrowUpRight size={16}/></a>
+        <a className="footer-whatsapp" href={site.whatsapp?whatsapp:`tel:${String(site.phone||"").replace(/[^\d+]/g,"")}`} target={site.whatsapp?"_blank":undefined} rel={site.whatsapp?"noopener noreferrer":undefined}>{site.whatsapp?<MessageCircle size={17}/>:<Phone size={17}/>}<span><strong>{site.whatsapp?"Chat with our team":"Call the shop"}</strong><small>{site.whatsapp?"We’re happy to help you choose":site.phone}</small></span><ArrowUpRight size={16}/></a>
         <div className="footer-social-block"><strong className="footer-social-heading">Follow the shop</strong><div className="footer-socials" aria-label="Social media links">
           {socialPlatforms.map(([id,label,Icon])=>{
             const href=socials[id];
@@ -39,10 +40,10 @@ export default function Footer() {
       </div>
       <div className="footer-link-column"><h4>Explore</h4><Link href="/products">Shop all products <ArrowUpRight size={14}/></Link><Link href="/services">Repairs & services <ArrowUpRight size={14}/></Link><Link href="/contact">Visit & contact <ArrowUpRight size={14}/></Link><Link href="/profile">My orders & profile <ArrowUpRight size={14}/></Link><Link href="/inquiry">Send an enquiry <ArrowUpRight size={14}/></Link></div>
       <div className="footer-contact-column"><h4>Come say hello</h4>
-        <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.address||"")}`} target="_blank" rel="noopener noreferrer"><span className="footer-contact-icon"><MapPin size={16}/></span><span><small>VISIT / SERVICE AREA</small><strong>{site.address}</strong></span><ArrowUpRight size={14}/></a>
+        <a href={locationLink} target="_blank" rel="noopener noreferrer"><span className="footer-contact-icon"><MapPin size={16}/></span><span><small>VISIT / SERVICE AREA</small><strong>{site.address}</strong></span><ArrowUpRight size={14}/></a>
         <a href={`tel:${String(site.phone||"").replace(/[^\d+]/g,"")}`}><span className="footer-contact-icon"><Phone size={16}/></span><span><small>CALL THE SHOP</small><strong>{site.phone}</strong></span><ArrowUpRight size={14}/></a>
-        <a href={`mailto:${site.email}`}><span className="footer-contact-icon"><Mail size={16}/></span><span><small>EMAIL</small><strong>{site.email}</strong></span><ArrowUpRight size={14}/></a>
-        <div className="footer-hours"><Clock size={16}/><span><small>SHOP HOURS</small><strong>{site.hours}</strong></span></div>
+        {site.email&&<a href={`mailto:${site.email}`}><span className="footer-contact-icon"><Mail size={16}/></span><span><small>EMAIL</small><strong>{site.email}</strong></span><ArrowUpRight size={14}/></a>}
+        <a className="footer-hours" href={locationLink} target="_blank" rel="noopener noreferrer"><Clock size={16}/><span><small>SHOP HOURS</small><strong>{site.hours}</strong></span><ArrowUpRight size={14}/></a>
       </div>
     </div>
     <div className="footer-bottom"><div className="container"><span>© {new Date().getFullYear()} {site.name}. All rights reserved.</span><span>Prices and availability are confirmed on enquiry.</span><Link href="/products">Back to shopping <ArrowRight size={13}/></Link></div></div>

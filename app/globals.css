@@ -246,3 +246,41 @@
   .footer-grid{grid-template-columns:1fr}
   .footer-about,.footer-contact-column{grid-column:auto}
 }
+
+.google-reviews-section{background:linear-gradient(125deg,#f5f8ff,#f5fbf8)}
+.google-reviews-layout{display:grid;grid-template-columns:1fr minmax(330px,.82fr);gap:clamp(28px,6vw,80px);align-items:center}
+.google-reviews-intro h2{max-width:520px;margin:9px 0 10px;font:800 clamp(27px,3.5vw,38px)/1.16 Manrope,sans-serif;letter-spacing:-1.2px}
+.google-reviews-intro>p{max-width:430px;margin:0 0 20px;color:var(--muted);font-size:13px;line-height:1.75}
+.google-rating-card{padding:20px 22px;background:#fff;border:1px solid #e5eaf1;border-radius:16px;box-shadow:0 12px 34px #1b37620c}
+.google-rating-top{display:flex;align-items:center;gap:8px;color:#596a81;font-size:11px;font-weight:800}
+.google-letter{font:800 21px Arial,sans-serif;background:conic-gradient(from -45deg,#4285f4 0deg 90deg,#34a853 90deg 180deg,#fbbc05 180deg 270deg,#ea4335 270deg);color:transparent;background-clip:text;-webkit-background-clip:text}
+.google-rating-live{display:inline-flex;align-items:center;gap:5px;margin-left:auto;color:#15815f;font-size:9px}
+.google-rating-live i{width:7px;height:7px;border-radius:50%;background:#20ac7b;box-shadow:0 0 0 3px #e1f6ed}
+.google-rating-summary{display:flex;align-items:center;gap:13px;padding:17px 0 14px;border-bottom:1px solid #edf0f4}
+.google-rating-summary>strong{font:800 43px/1 Manrope,sans-serif;letter-spacing:-2px;color:var(--ink)}
+.google-rating-summary>div{display:grid;gap:4px}
+.google-stars{display:flex;gap:2px;color:#f5ab18}
+.google-rating-summary small{color:var(--muted);font-size:10px}
+.google-rating-bars{display:grid;gap:6px;padding:14px 0}
+.google-rating-bars>div{display:grid;grid-template-columns:44px minmax(0,1fr) 22px;align-items:center;gap:8px;color:#66758b;font-size:9px}
+.google-rating-track{height:7px;overflow:hidden;border-radius:99px;background:#edf0f4}
+.google-rating-track i{display:block;height:100%;border-radius:inherit;background:#f5b51b}
+.google-rating-bars small{text-align:right;color:#8996a7;font-size:9px}
+.google-featured-review{margin:0 0 12px;padding:12px 13px;border:1px solid #edf0f4;border-radius:11px;background:#fafbfd}
+.google-featured-review>div{display:flex;align-items:center;gap:7px}
+.google-review-quote-mark{color:#4285f4;font:800 25px/1 Georgia,serif}
+.google-featured-review blockquote{margin:8px 0;color:#34445c;font:600 12px/1.65 Manrope,sans-serif}
+.google-featured-review figcaption{color:#39485d;font-size:9px;font-weight:800}
+.google-featured-review figcaption span{color:#8490a1;font-weight:500}
+.google-review-card-link{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 0 8px;border-top:1px solid #edf0f4;color:var(--primary);font-size:10px;font-weight:800}
+.google-review-card-link svg{flex-shrink:0}
+.google-rating-note{display:block;color:#8390a1;font-size:9px}
+.call-float{background:#2457d6;border-color:#7695ed;box-shadow:0 9px 28px #143f9a40}
+.call-float:hover{background:#1742b0;box-shadow:0 13px 32px #143f9a55}
+.call-float .whatsapp-float-icon i{display:none}
+.footer-hours{border-left:0;border-right:0;border-top:0;background:transparent;text-align:left;font-family:inherit;cursor:pointer}
+.footer-hours:hover strong{color:white}
+@media(max-width:760px){
+  .google-reviews-layout{grid-template-columns:1fr;gap:19px}
+  .google-rating-card{padding:17px}
+}

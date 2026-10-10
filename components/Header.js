@@ -15,7 +15,7 @@ export default function Header() {
       <div className="container header-inner">
         <Link className="brand" href="/" onClick={()=>setOpen(false)}>
           <span className="brand-mark"><Laptop size={24}/></span>
-          <span><strong>KGN <em>Computer</em></strong><small>& SERVICES</small></span>
+          <span><strong>{site.shortName||"KGN Computer"}</strong><small>& SERVICES</small></span>
         </Link>
         <nav id="primary-navigation" className={`nav ${open ? "nav-open" : ""}`} aria-label="Main navigation">
           {links.map(([label,href])=><Link key={href} href={href} onClick={()=>setOpen(false)}>{label}</Link>)}

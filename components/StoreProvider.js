@@ -19,12 +19,45 @@ export function StoreProvider({ children }) {
 
   useEffect(() => {
     const storedServices = readLocal("kgn_services", seedServices);
-    const normalizedServices = storedServices.map(service => service.category ? service : {...service, category: "General support"});
-    const storedServiceCategories = readLocal("kgn_service_categories", seedServiceCategories);
+    const retiredSeedServiceIds = new Set(["s1", "s2", "s3", "s4", "s5", "s6"]);
+    const customServices = storedServices.filter(service => !retiredSeedServiceIds.has(service.id));
+    const normalizedServices = [
+      ...seedServices,
+      ...customServices.map(service => service.category ? service : {...service, category: "General support"})
+    ];
+    const retiredSeedCategories = new Set(["Computer repair", "Setup & installation", "Security & networking", "Data & storage"]);
+    const storedServiceCategories = readLocal("kgn_service_categories", seedServiceCategories)
+      .filter(category => !retiredSeedCategories.has(category));
+    const storedSite = readLocal("kgn_site", seedSite);
+    const legacySiteValues = {
+      name: "KGN Computer and Services",
+      shortName: "KGN Computer",
+      tagline: "Computers, accessories & reliable tech support",
+      description: "Your local destination for computers, accessories, repairs and technical support.",
+      phone: "9340004380",
+      whatsapp: "919340004380",
+      email: "kgncomputer@example.com",
+      address: "Neemuch, Madhya Pradesh, India",
+      hours: "Mon–Sat · 10:00 AM–8:00 PM",
+      announcement: "Computer sales, accessories and doorstep tech support"
+    };
+    const siteWithCurrentListing = Object.fromEntries(
+      Object.entries(storedSite).map(([key, value]) => [key, legacySiteValues[key] === value ? seedSite[key] : value])
+    );
+    const siteWithVerifiedGoogleDetails = {
+      ...siteWithCurrentListing,
+      googleRating: seedSite.googleRating,
+      googleReviewCount: seedSite.googleReviewCount,
+      googleReviewDistribution: seedSite.googleReviewDistribution,
+      googleFeaturedReview: seedSite.googleFeaturedReview,
+      googleMapsUrl: seedSite.googleMapsUrl,
+      googleReviewsUrl: seedSite.googleReviewsUrl,
+      businessCategory: seedSite.businessCategory
+    };
     setProducts(readLocal("kgn_products", seedProducts));
     setServices(normalizedServices);
     setServiceCategories([...new Set([...storedServiceCategories, ...normalizedServices.map(service => service.category)])]);
-    setSite(readLocal("kgn_site", seedSite));
+    setSite({...seedSite, ...siteWithVerifiedGoogleDetails, socialLinks: {...seedSite.socialLinks, ...storedSite.socialLinks}});
     setCart(readLocal("kgn_cart", []));
     setOrders(readLocal("kgn_orders", []));
     setProfile(readLocal("kgn_profile", { name: "", phone: "", email: "", address: "" }));
