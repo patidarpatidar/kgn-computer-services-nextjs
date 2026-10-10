@@ -44,6 +44,9 @@ export function StoreProvider({ children }) {
     const siteWithCurrentListing = Object.fromEntries(
       Object.entries(storedSite).map(([key, value]) => [key, legacySiteValues[key] === value ? seedSite[key] : value])
     );
+    if (siteWithCurrentListing.whatsapp === legacySiteValues.whatsapp) {
+      siteWithCurrentListing.whatsapp = seedSite.whatsapp;
+    }
     const siteWithVerifiedGoogleDetails = {
       ...siteWithCurrentListing,
       googleRating: seedSite.googleRating,
