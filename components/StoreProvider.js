@@ -44,8 +44,11 @@ export function StoreProvider({ children }) {
     const siteWithCurrentListing = Object.fromEntries(
       Object.entries(storedSite).map(([key, value]) => [key, legacySiteValues[key] === value ? seedSite[key] : value])
     );
-    if (siteWithCurrentListing.whatsapp === legacySiteValues.whatsapp) {
+    const whatsappDigits = String(siteWithCurrentListing.whatsapp || "").replace(/\D/g, "");
+    if (whatsappDigits.length < 10 || whatsappDigits === legacySiteValues.whatsapp) {
       siteWithCurrentListing.whatsapp = seedSite.whatsapp;
+    } else {
+      siteWithCurrentListing.whatsapp = whatsappDigits;
     }
     const siteWithVerifiedGoogleDetails = {
       ...siteWithCurrentListing,
