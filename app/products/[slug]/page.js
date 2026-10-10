@@ -1,0 +1,17 @@
+"use client";
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import { useState } from "react";
+import { useStore } from "../../../components/StoreProvider";
+import { money, whatsappLink } from "../../../lib/storage";
+import { ShoppingCart, MessageCircle, CheckCircle2, ArrowLeft, ArrowRight } from "lucide-react";
+import ProductCard from "../../../components/ProductCard";
+import categories from "../../../data/categories.json";
+export default function ProductDetail() {
+ const {slug}=useParams(); const {products,addToCart,site}=useStore(); const [added,setAdded]=useState(false); const product=products.find(p=>p.slug===slug&&p.active!==false);
+ if(!product) return <div className="container section"><h1>Product not found</h1><Link className="text-link" href="/products">Back to products</Link></div>;
+ const categoryName=categories.find(category=>category.id===product.category)?.name||product.category;
+ const message=`Hello ${site.name}, I am interested in:\n${product.name}\nIndicative price: ${money(product.price)}\nPlease confirm availability and final price.`;
+ const related=products.filter(item=>item.id!==product.id&&item.active!==false&&item.category===product.category).slice(0,3);
+ return <><section className="section"><div className="container"><Link className="back-link" href="/products"><ArrowLeft size={16}/> Back to products</Link><div className="detail-grid"><div className="detail-art"><span className="detail-emoji">{product.emoji}</span><span className="detail-art-caption">KGN COMPUTER & SERVICES</span></div><div className="detail-copy"><span className="eyebrow">{categoryName}</span><h1>{product.name}</h1><p className="detail-description">{product.description}</p><div className="detail-price"><strong>{money(product.price)}</strong>{product.oldPrice>product.price&&<del>{money(product.oldPrice)}</del>}</div><p className="price-note">Indicative demo price · confirm exact model, stock and final price with the shop.</p><div className="stock-note"><CheckCircle2 size={17}/> {product.stock>0?`Enquiry welcome · ${product.stock} demo units shown`:"Ask us for availability"}</div><div className="detail-actions"><button className="button" onClick={()=>{addToCart(product);setAdded(true)}}><ShoppingCart size={18}/> {added?"Added to cart":"Add to cart"}</button><a className="button button-whatsapp" href={whatsappLink(site.whatsapp,message)} target="_blank" rel="noopener noreferrer"><MessageCircle size={18}/> Ask on WhatsApp</a>{added&&<Link className="text-link detail-cart-link" href="/cart">View your cart <ArrowRight size={15}/></Link>}</div><div className="spec-box"><h3>Details to check</h3>{(product.specs||[]).map(s=><p key={s}>✓ {s}</p>)}</div></div></div></div></section>{related.length>0&&<section className="section section-muted"><div className="container"><div className="section-heading"><div><span className="eyebrow">MORE IN THIS CATEGORY</span><h2>Related options</h2><p>Compare a few alternatives before you decide.</p></div><Link className="text-link" href={`/products?category=${product.category}`}>View category <ArrowRight size={16}/></Link></div><div className="product-grid related-product-grid">{related.map(item=><ProductCard key={item.id} product={item}/>)}</div></div></section>}</>;
+}

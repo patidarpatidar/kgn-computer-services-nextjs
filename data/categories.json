@@ -1,0 +1,8 @@
+[
+  {"id":"laptops","name":"Laptops","icon":"Laptop"},
+  {"id":"desktops","name":"Desktops","icon":"Monitor"},
+  {"id":"printers","name":"Printers","icon":"Printer"},
+  {"id":"accessories","name":"Accessories","icon":"Keyboard"},
+  {"id":"networking","name":"Networking","icon":"Wifi"},
+  {"id":"cctv","name":"CCTV & Security","icon":"ShieldCheck"}
+]

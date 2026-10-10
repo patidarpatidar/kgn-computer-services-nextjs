@@ -1,0 +1,22 @@
+{
+  "name": "KGN Computer and Services",
+  "shortName": "KGN Computer",
+  "tagline": "Computers, accessories & reliable tech support",
+  "description": "Your local destination for computers, accessories, repairs and technical support.",
+  "phone": "9340004380",
+  "whatsapp": "919340004380",
+  "email": "kgncomputer@example.com",
+  "address": "Neemuch, Madhya Pradesh, India",
+  "hours": "Mon–Sat · 10:00 AM–8:00 PM",
+  "currency": "INR",
+  "announcement": "Computer sales, accessories and doorstep tech support",
+  "socialLinks": {
+    "instagram": "",
+    "facebook": "",
+    "youtube": "",
+    "linkedin": "",
+    "x": "",
+    "tiktok": ""
+  },
+  "upiId": "your-upi-id@bank"
+}
